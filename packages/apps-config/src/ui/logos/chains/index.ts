@@ -67,6 +67,8 @@ export { chainsQfNetworkPNG } from './generated/qf-networkPNG.js';
 export { chainsQpnPNG } from './generated/qpnPNG.js';
 export { chainsRiodefiPNG } from './generated/riodefiPNG.js';
 export { chainsRococoSVG } from './generated/rococoSVG.js';
+export { chainsSelendraMainnetPNG } from './generated/selendra-mainnetPNG.js';
+export { chainsSelendraTestnetPNG } from './generated/selendra-testnetPNG.js';
 export { chainsShibuyaSVG } from './generated/shibuyaSVG.js';
 export { chainsShidenPNG } from './generated/shidenPNG.js';
 export { chainsSkyekiwiPNG } from './generated/skyekiwiPNG.js';

@@ -3,7 +3,7 @@
 
 import type { EndpointOption } from './types.js';
 
-import { nodesSubstrateHexagonSVG } from '../ui/logos/nodes/index.js';
+import { chainsSelendraMainnetPNG } from '../ui/logos/chains/index.js';
 
 // The available endpoints that will show in the dropdown. For the most part (with the exception of
 // Polkadot) we try to keep this to live chains only, with RPCs hosted by the community/chain vendor
@@ -20,8 +20,8 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     },
     text: 'Selendra Mainnet',
     ui: {
-      color: '#1c7c54',
-      logo: nodesSubstrateHexagonSVG
+      color: '#00A7E1',
+      logo: chainsSelendraMainnetPNG
     }
   }
 ];
