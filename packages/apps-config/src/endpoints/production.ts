@@ -3,11 +3,28 @@
 
 import type { EndpointOption } from './types.js';
 
-import { chains3dpassSVG, chainsAlephSVG, chainsAnalogSVG, chainsBittensorPNG, chainsChainflipPNG, chainsCommuneaiPNG, chainsCreditcoinPNG, chainsDebioSVG, chainsFragnovaPNG, chainsJurPNG, chainsLiberlandPNG, chainsLogionPNG, chainsMyriadPNG, chainsSpannerPNG, chainsTanglePNG, chainsTorusPNG, chainsVaraPNG, chainsVtbPNG } from '../ui/logos/chains/index.js';
-import { nodesAresOdysseySVG, nodesAutonomysPNG, nodesCentrifugePNG, nodesCereSVG, nodesChainxSVG, nodesCompetitorsClubPNG, nodesCrownSterlingPNG, nodesCrustSVG, nodesDatahighwayPNG, nodesDockPNG, nodesEdgewareWhitePNG, nodesEfinitySVG, nodesElysiumPNG, nodesHanyonycashPNG, nodesHumanodePNG, nodesInnovatorPNG, nodesJoystreamSVG, nodesKulupuSVG, nodesKusariSVG, nodesMathSVG, nodesMinixPNG, nodesNftmartPNG, nodesNodleSVG, nodesPolkadexSVG, nodesPolymeshSVG, nodesRiochainSVG, nodesRobonomicsSVG, nodesSherpaxPNG, nodesSoraSubstrateSVG, nodesStafiPNG, nodesSubgameSVG, nodesSubsocialSVG, nodesSwapdexSVG, nodesTernoaSVG, nodesThebifrostPNG, nodesUniartsPNG, nodesUnitnetworkPNG } from '../ui/logos/nodes/index.js';
+import { ZKVERIFY_GENESIS } from '../api/constants.js';
+import { chains3dpassSVG, chainsAnalogSVG, chainsBittensorPNG, chainsChainflipPNG, chainsCommuneaiPNG, chainsCreditcoinPNG, chainsDebioSVG, chainsFragnovaPNG, chainsJurPNG, chainsLiberlandPNG, chainsLogionPNG, chainsMyriadPNG, chainsPolkadotCircleSVG, chainsSpannerPNG, chainsTanglePNG, chainsTorusPNG, chainsVaraPNG, chainsVtbPNG } from '../ui/logos/chains/index.js';
+import { nodesAresOdysseySVG, nodesAutonomysPNG, nodesCentrifugePNG, nodesCereSVG, nodesChainxSVG, nodesCompetitorsClubPNG, nodesCrownSterlingPNG, nodesCrustSVG, nodesDatahighwayPNG, nodesDockPNG, nodesEdgewareWhitePNG, nodesEfinitySVG, nodesElysiumPNG, nodesHanyonycashPNG, nodesHumanodePNG, nodesInnovatorPNG, nodesJoystreamSVG, nodesKulupuSVG, nodesKusariSVG, nodesMathSVG, nodesMinixPNG, nodesNftmartPNG, nodesNodleSVG, nodesPolkadexSVG, nodesPolymeshSVG, nodesRiochainSVG, nodesRobonomicsSVG, nodesSherpaxPNG, nodesSoraSubstrateSVG, nodesStafiPNG, nodesSubgameSVG, nodesSubsocialSVG, nodesSwapdexSVG, nodesTanssiSVG, nodesTernoaSVG, nodesThebifrostPNG, nodesTscsPNG, nodesUniartsPNG, nodesUnitnetworkPNG, nodesVFlowPNG, nodesZkVerifyPNG } from '../ui/logos/nodes/index.js';
 
 export * from './productionRelayKusama.js';
 export * from './productionRelayPolkadot.js';
+
+export const zkVerifyParas: Omit<EndpointOption, 'teleport'>[] = [
+  {
+    info: 'VFlow',
+    paraId: 1,
+    providers: {
+      zkVerify: 'wss://vflow-rpc.zkverify.io'
+    },
+    relayName: 'zkVerify',
+    text: 'VFlow',
+    ui: {
+      color: '#5C72FF',
+      logo: nodesVFlowPNG
+    }
+  }
+];
 
 // The available endpoints that will show in the dropdown. For the most part (with the exception of
 // Polkadot) we try to keep this to live chains only, with RPCs hosted by the community/chain vendor
@@ -20,25 +37,12 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: '3dpass',
     providers: {
-      '3dpass': 'wss://rpc.3dpscan.io'
+      '3dpass': 'wss://rpc.3dpass.org'
     },
     text: '3DPass',
     ui: {
       color: '#323232',
       logo: chains3dpassSVG
-    }
-  },
-  {
-    info: 'aleph',
-    providers: {
-      'Aleph Zero Foundation': 'wss://ws.azero.dev',
-      Dwellir: 'wss://aleph-zero-rpc.dwellir.com',
-      OnFinality: 'wss://aleph-zero.api.onfinality.io/public-ws'
-    },
-    text: 'Aleph Zero',
-    ui: {
-      color: '#00CCAB',
-      logo: chainsAlephSVG
     }
   },
   {
@@ -69,9 +73,20 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     info: 'autonomys-mainnet',
     providers: {
       Foundation: 'wss://rpc.mainnet.subspace.foundation/ws',
-      Labs: 'wss://rpc-0.mainnet.autonomys.xyz/ws'
+      Labs: 'wss://rpc.mainnet.autonomys.xyz/ws'
     },
     text: 'Autonomys',
+    ui: {
+      color: '#5870B3',
+      logo: nodesAutonomysPNG
+    }
+  },
+  {
+    info: 'autonomys-mainnet-evm',
+    providers: {
+      Labs: 'wss://auto-evm.mainnet.autonomys.xyz/ws'
+    },
+    text: 'Autonomys EVM',
     ui: {
       color: '#5870B3',
       logo: nodesAutonomysPNG
@@ -92,14 +107,28 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'bittensor',
     providers: {
-      // Dwellir: 'wss://bittensor-mainnet-rpc.dwellir.com', // https://github.com/polkadot-js/apps/issues/10728
       'Latent Holdings (Lite)': 'wss://lite.sub.latent.to:443',
+      'OnFinality (Archive)': 'wss://bittensor-finney.api.onfinality.io/public-ws',
       'Opentensor Fdn (Archive)': 'wss://entrypoint-finney.opentensor.ai:443'
     },
     text: 'Bittensor',
     ui: {
       color: '#252525',
       logo: chainsBittensorPNG
+    }
+  },
+  {
+    info: 'bulletin',
+    providers: {
+      Amforc: 'wss://bulletin.rpc.amforc.com',
+      Interweb: 'wss://rpc.interweb-it.com/bulletin',
+      TurboFlakes: 'wss://bulletin.rpc.turboflakes.io',
+      'Web3 Foundation': 'wss://bulletin-rpc.w3f.community'
+    },
+    text: 'Bulletin',
+    ui: {
+      color: '#6B2D84',
+      logo: chainsPolkadotCircleSVG
     }
   },
   {
@@ -139,8 +168,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'chainflip',
     providers: {
-      chainflip: 'wss://mainnet-archive.chainflip.io',
-      dwellir: 'wss://chainflip-rpc.dwellir.com'
+      chainflip: 'wss://mainnet-archive.chainflip.io'
     },
     text: 'Chainflip',
     ui: {
@@ -162,7 +190,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'communeai',
     providers: {
-      Bitconnect: 'wss://commune-api-node-1.communeai.net'
+      // Bitconnect: 'wss://commune-api-node-1.communeai.net' // https://github.com/polkadot-js/apps/issues/11950
       // OnFinality: 'wss://commune.api.onfinality.io/public-ws'
     },
     text: 'Commune AI',
@@ -211,7 +239,6 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
       'Crust Network APP': 'wss://rpc.crustnetwork.app',
       'Crust Network CC': 'wss://rpc.crustnetwork.cc',
       'Crust Network XYZ': 'wss://rpc.crustnetwork.xyz',
-      Dwellir: 'wss://crust-mainnet-rpc.dwellir.com',
       OnFinality: 'wss://crust.api.onfinality.io/public-ws'
     },
     text: 'Crust Network',
@@ -235,7 +262,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'dock-pos-mainnet',
     providers: {
-      'Dock Association': 'wss://mainnet-node.dock.io'
+      // 'Dock Association': 'wss://mainnet-node.dock.io' // https://github.com/polkadot-js/apps/issues/11460
     },
     text: 'Dock',
     ui: {
@@ -246,10 +273,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     info: 'edgeware',
     providers: {
       // 'Commonwealth Labs': 'wss://mainnet2.edgewa.re', // https://github.com/polkadot-js/apps/issues/10373
-      'JelliedOwl Bangalore': 'wss://edgeware-rpc3.jelliedowl.net',
-      'JelliedOwl London': 'wss://edgeware-rpc1.jelliedowl.net',
-      'JelliedOwl New York': 'wss://edgeware-rpc0.jelliedowl.net',
-      'JelliedOwl Singapore': 'wss://edgeware-rpc2.jelliedowl.net'
+      'JelliedOwl Bangalore': 'wss://edgeware-rpc3.jelliedowl.net'
       // OnFinality: 'wss://edgeware.api.onfinality.io/public-ws' // https://github.com/polkadot-js/apps/issues/9795
     },
     text: 'Edgeware',
@@ -327,7 +351,8 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     info: 'joystream',
     providers: {
       Joyutils: 'wss://rpc.joyutils.org',
-      Jsgenesis: 'wss://rpc.joystream.org'
+      Jsgenesis: 'wss://rpc.joystream.org',
+      'l1.media': 'wss://rpc.l1.media'
     },
     text: 'Joystream',
     ui: {
@@ -372,7 +397,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'Liberland',
     providers: {
-      Dwellir: 'wss://liberland-rpc.dwellir.com',
+      Dwellir: 'wss://liberland-rpc.n.dwellir.com',
       'Liberland Government': 'wss://mainnet.liberland.org'
     },
     text: 'Liberland mainnet',
@@ -438,7 +463,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'nftmart',
     providers: {
-      // NFTMart: 'wss://mainnet.nftmart.io/rpc/ws' // https://github.com/polkadot-js/apps/issues/11302
+      NFTMart: 'wss://mainnet.nftmart.io/rpc/ws'
     },
     text: 'NFTMart',
     ui: {
@@ -460,8 +485,8 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'polkadex',
     providers: {
-      Dwellir: 'wss://polkadex-mainnet-rpc.dwellir.com',
-      OnFinality: 'wss://polkadex.api.onfinality.io/public-ws',
+      // OnFinality: 'wss://polkadex.api.onfinality.io/public-ws', // https://github.com/polkadot-js/apps/issues/11827
+      PolkadexSup: 'wss://so.polkadex.ee',
       RadiumBlock: 'wss://polkadex.public.curie.radiumblock.co/ws'
     },
     text: 'Polkadex',
@@ -586,13 +611,25 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
   {
     info: 'tangle',
     providers: {
-      Dwellir: 'wss://tangle-mainnet-rpc.dwellir.com',
+      Dwellir: 'wss://tangle-mainnet-rpc.n.dwellir.com',
       Webb: 'wss://rpc.tangle.tools'
     },
     text: 'Tangle',
     ui: {
       color: '#7578fb',
       logo: chainsTanglePNG
+    }
+  },
+  {
+    info: 'tanssi',
+    isPeople: true,
+    providers: {
+      'Tanssi Foundation': 'wss://services.tanssi-mainnet.network/tanssi'
+    },
+    text: 'Tanssi',
+    ui: {
+      color: '#149b9bff',
+      logo: nodesTanssiSVG
     }
   },
   {
@@ -615,6 +652,17 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     ui: {
       color: '#070A0E',
       logo: chainsTorusPNG
+    }
+  },
+  {
+    info: 'tscs-mainnet',
+    providers: {
+      SuperEX: 'wss://testnetrpc.scschain.com'
+    },
+    text: 'TSCS Network',
+    ui: {
+      color: '#FFAB75',
+      logo: nodesTscsPNG
     }
   },
   {
@@ -643,7 +691,7 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     info: 'vara',
     isPeopleForIdentity: false,
     providers: {
-      Blast: 'wss://vara-mainnet.public.blastapi.io',
+      // Blast: 'wss://vara-mainnet.public.blastapi.io', // https://github.com/polkadot-js/apps/issues/11577
       Gear: 'wss://rpc.vara.network'
       // 'P2P.org': 'wss://vara.substrate-rpc.p2p.org/' // https://github.com/polkadot-js/apps/issues/11337
     },
@@ -673,6 +721,22 @@ export const prodChains: Omit<EndpointOption, 'teleport'>[] = [
     ui: {
       color: 'linear-gradient(-90deg, #9400D3 0%, #5A5CA9 50%, #00BFFF 100%)',
       logo: nodesDatahighwayPNG
+    }
+  },
+  {
+    genesisHash: ZKVERIFY_GENESIS,
+    info: 'zkVerify',
+    isRelay: true,
+    linked: [
+      ...zkVerifyParas
+    ],
+    providers: {
+      zkverify: 'wss://zkverify-rpc.zkverify.io'
+    },
+    text: 'zkVerify',
+    ui: {
+      color: '#B5FFA5',
+      logo: nodesZkVerifyPNG
     }
   }
 ];

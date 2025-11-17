@@ -1,7 +1,7 @@
 // Copyright 2017-2025 @polkadot/app-coretime authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ChainName, SaleParameters } from '../types.js';
+import type { RelayName, SaleParameters } from '../types.js';
 
 import React, { useMemo } from 'react';
 
@@ -80,12 +80,12 @@ const phases = {
 
 const dotLakeUrl = 'https://data.parity.io/coretime';
 
-const SaleDetailsView = ({ chainName, chosenSaleNumber, saleParams }: { saleParams: SaleParameters, chosenSaleNumber: number, chainName: ChainName }) => {
+const SaleDetailsView = ({ chosenSaleNumber, relayName, saleParams }: { saleParams: SaleParameters, chosenSaleNumber: number, relayName: RelayName }) => {
   const { t } = useTranslation();
 
   const subscanPriceGraphUrl = useMemo(() =>
-    `https://coretime-${chainName}.subscan.io/coretime_dashboard`
-  , [chainName]);
+    `https://coretime-${relayName}.subscan.io/coretime_dashboard`
+  , [relayName]);
 
   if (chosenSaleNumber === -1 || !saleParams) {
     return null;
@@ -98,7 +98,7 @@ const SaleDetailsView = ({ chainName, chosenSaleNumber, saleParams }: { salePara
         <div style={{ display: 'grid', gap: '1rem', gridTemplateRows: '1fr 1fr 1fr', minWidth: '200px' }}>
           {!saleParams?.phaseConfig &&
             <div>
-              <p>{t(`This sale is of unsual length of ${saleParams.currentRegion.end.ts - saleParams.currentRegion.start.ts} timeslices, hence the regular phases are not applicable.`)}</p>
+              <p>{t(`This sale is of unusual length of ${saleParams.currentRegion.end.ts - saleParams.currentRegion.start.ts} timeslices, hence the regular phases are not applicable.`)}</p>
               <p>{t(`Sale start timeslice: ${saleParams.currentRegion.start.ts}`)}</p>
               <p>{t(`Sale end timeslice: ${saleParams.currentRegion.end.ts}`)}</p>
             </div>
@@ -127,14 +127,14 @@ const SaleDetailsView = ({ chainName, chosenSaleNumber, saleParams }: { salePara
             target='_blank'
           >Sale Purchase Graph</a>
           <SubscanModuleCallUrl
-            chainName={chainName}
+            chainName={relayName}
             chosenSaleNumber={chosenSaleNumber}
             currentRegion={saleParams.currentRegion}
             urlTitle='Sale Purchase Transactions'
           />
           <SubscanModuleCallUrl
             call={'renew'}
-            chainName={chainName}
+            chainName={relayName}
             chosenSaleNumber={chosenSaleNumber}
             currentRegion={saleParams.currentRegion}
             urlTitle='Sale Renewal Transactions'
@@ -151,7 +151,7 @@ const SaleDetailsView = ({ chainName, chosenSaleNumber, saleParams }: { salePara
           {Object.entries(providers).map(([provider, { alt, href, logo }]) => (
             <LinkWithLogo
               alt={alt}
-              href={href(chainName)}
+              href={href(relayName)}
               key={provider}
               logo={logo}
             />

@@ -23,6 +23,36 @@ interface Props {
 const INVALID_PARAID = Number.MAX_SAFE_INTEGER;
 const XCM_LOC = ['xcm', 'xcmPallet', 'polkadotXcm'];
 
+function getDestMultilocation (isParaTeleport: boolean | undefined, recipientParaId: number) {
+  if (isParaTeleport) {
+    if (recipientParaId === -1) { // para -> relay
+      return {
+        interior: 'Here',
+        parents: 1
+      };
+    } else { // para -> para
+      return {
+        interior: {
+          X1: [{
+            ParaChain: recipientParaId
+          }]
+        },
+        parents: 1
+      };
+    }
+  }
+
+  // relay -> para
+  return {
+    interior: {
+      X1: [{
+        ParaChain: recipientParaId
+      }]
+    },
+    parents: 0
+  };
+}
+
 function createOption ({ paraId, text, ui }: LinkOption): Option {
   return {
     text: (
@@ -66,59 +96,43 @@ function Teleport ({ onClose }: Props): React.ReactElement<Props> | null {
     [destinations]
   );
 
-  const url = useMemo(
+  const urls = useMemo(
     () => destinations.find(({ paraId }, index) =>
       recipientParaId === -1
         ? index === 0
         : recipientParaId === paraId
-    )?.value,
+    )?.providers,
     [destinations, recipientParaId]
   );
 
-  const destApi = useApiUrl(url);
+  const destApi = useApiUrl(urls);
 
   const params = useMemo(
     () => [
+      { V4: getDestMultilocation(isParaTeleport, recipientParaId) },
       {
-        V3: isParaTeleport
-          ? {
-            interior: 'Here',
-            parents: 1
-          }
-          : {
-            interior: {
-              X1: {
-                ParaChain: recipientParaId
-              }
-            },
-            parents: 0
-          }
-      },
-      {
-        V3: {
+        V4: {
           interior: {
-            X1: {
+            X1: [{
               AccountId32: {
                 id: api.createType('AccountId32', recipientId).toHex(),
                 network: null
               }
-            }
+            }]
           },
           parents: 0
         }
       },
       {
-        V3: [{
+        V4: [{
           fun: {
             Fungible: amount
           },
           id: {
-            Concrete: {
-              interior: 'Here',
-              parents: isParaTeleport
-                ? 1
-                : 0
-            }
+            interior: 'Here',
+            parents: isParaTeleport
+              ? 1
+              : 0
           }
         }]
       },
@@ -220,6 +234,22 @@ function Teleport ({ onClose }: Props): React.ReactElement<Props> | null {
             isLoading={!destApi}
             label={t('destination existential deposit')}
           />
+        </Modal.Columns>
+        <Modal.Columns>
+          <MarkWarning
+            className='warning'
+            withIcon={false}
+          >
+            <p>{t('To ensure a successful XCM transaction, please make sure the following conditions are met:')}</p>
+            <ol>
+              <li>
+                {t('The source account must retain a balance greater than the existential deposit after covering the fee.')}
+              </li>
+              <li>
+                {t('The destination account must hold at least the minimum existential deposit after receiving the transfer and paying any applicable destination fees.')}
+              </li>
+            </ol>
+          </MarkWarning>
         </Modal.Columns>
       </Modal.Content>
       <Modal.Actions>
