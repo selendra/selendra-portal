@@ -1,9 +1,9 @@
-// Copyright 2017-2024 @polkadot/apps authors & contributors
+// Copyright 2017-2025 @polkadot/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
 import type { BareProps as Props } from '@polkadot/react-components/types';
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { AccountSidebar, styled } from '@polkadot/react-components';
 import GlobalStyle from '@polkadot/react-components/styles';
@@ -28,6 +28,18 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
       : apiEndpoint?.ui.color,
     [apiEndpoint, isDevelopment]
   );
+
+  // Update document title based on selected provider
+  useEffect(() => {
+    if (apiEndpoint) {
+      // providerName contains the provider name (e.g., "Selendra", "Selendra by StadiumX", "Selendra Testnet")
+      if (apiEndpoint.providerName) {
+        document.title = apiEndpoint.providerName;
+      } else if (apiEndpoint.text) {
+        document.title = String(apiEndpoint.text);
+      }
+    }
+  }, [apiEndpoint]);
 
   return (
     <>
