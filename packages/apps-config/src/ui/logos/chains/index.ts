@@ -67,6 +67,7 @@ export { chainsQfNetworkPNG } from './generated/qf-networkPNG.js';
 export { chainsQpnPNG } from './generated/qpnPNG.js';
 export { chainsRiodefiPNG } from './generated/riodefiPNG.js';
 export { chainsRococoSVG } from './generated/rococoSVG.js';
+export { chainsSelendraLogoTestnetPNG } from './generated/selendra-logo-testnetPNG.js';
 export { chainsSelendraLogoPNG } from './generated/selendra-logoPNG.js';
 export { chainsShibuyaSVG } from './generated/shibuyaSVG.js';
 export { chainsShidenPNG } from './generated/shidenPNG.js';

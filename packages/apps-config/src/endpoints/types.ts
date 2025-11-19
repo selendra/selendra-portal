@@ -91,6 +91,7 @@ export interface LinkOption extends BaseOption, Option {
   isSpaced?: boolean;
   linked?: LinkOption[];
   providers?: `${'wss://' | 'light://substrate-connect/'}${string}`[];
+  providerName?: string;
   relayName?: string;
   textBy: string;
   textRelay?: React.ReactNode;
