@@ -24,11 +24,11 @@ ENV WS_URL=
 
 WORKDIR /usr/share/nginx/html
 
-COPY docker/env.sh .
+COPY env.sh .
 
 RUN apk add --no-cache bash; chmod +x env.sh
 
-COPY docker/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /apps/packages/apps/build /usr/share/nginx/html
 
 EXPOSE 80
